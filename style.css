@@ -1,0 +1,34 @@
+/* Basic Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+body { background: #e6ecf0; }
+a { text-decoration: none; color: inherit; }
+
+/* Container */
+.container { max-width: 600px; margin: 20px auto; }
+
+/* Tweet Box */
+.tweet-box { background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+.tweet-box img.avatar { width: 48px; height: 48px; border-radius: 50%; float: left; margin-right: 10px; }
+.tweet-box .tweet-content { overflow: hidden; }
+
+/* Tweet Text */
+.tweet-content strong { display: inline-block; margin-right: 5px; }
+.tweet-content .handle { color: #657786; }
+
+/* Buttons */
+.tweet-actions { margin-top: 8px; color: #1da1f2; font-size: 14px; cursor: pointer; }
+.tweet-actions button { background: none; border: none; color: #1da1f2; cursor: pointer; margin-right: 10px; }
+
+/* Profile */
+.profile-header { background: #1da1f2; height: 150px; position: relative; border-radius: 0 0 10px 10px; }
+.profile-header img.avatar { width: 80px; height: 80px; border-radius: 50%; position: absolute; bottom: -40px; left: 20px; border: 3px solid #fff; }
+.profile-info { padding: 50px 20px 10px 20px; background: #fff; border-radius: 10px; margin-top: 40px; }
+.profile-info h2 { font-size: 20px; margin-bottom: 5px; }
+.profile-info .handle { color: #657786; margin-bottom: 10px; }
+.profile-info .bio { margin: 10px 0; color: #14171a; }
+
+/* Login Form */
+.login-container { max-width: 400px; margin: 100px auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);}
+.login-container h2 { margin-bottom: 20px; }
+.login-container input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccd6dd; border-radius: 5px; }
+.login-container button { width: 100%; padding: 10px; background: #1da1f2; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
