@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tweet18 Login</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.0/dist/supabase.min.js"></script>
+<script>
+  const supabaseUrl = 'YOUR_SUPABASE_URL';
+  const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  async function signUp() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const username = document.getElementById('username').value;
+
+    const { data: user, error } = await supabase.auth.signUp({ email, password });
+    if(error) return alert(error.message);
+
+    await supabase.from('users').insert({
+      id: user.id,
+      username: username,
+      display_name: username
+    });
+    window.location.href = 'index.html';
+  }
+
+  async function login() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const { data: session, error } = await supabase.auth.signInWithPassword({ email, password });
+    if(error) return alert(error.message);
+    window.location.href = 'index.html';
+  }
+</script>
+</head>
+<body>
+<div class="login-container">
+  <h2>Login / Sign Up</h2>
+  <input type="text" id="username" placeholder="Username (for signup)">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <button onclick="signUp()">Sign Up</button>
+</div>
+</body>
+</html>
