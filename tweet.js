@@ -1,64 +1,61 @@
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
 const supabaseUrl = 'https://ledutjaiqwnadwwvojpg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxlZHV0amFpcXduYWR3d3ZvanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxNDc5OTUsImV4cCI6MjA3MDcyMzk5NX0.T9LqaQgtGnt2sRthOCzzfqmF7zjyi3A9KEFWLNSmUMM';
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-async function initTimeline() {
-  const user = await supabase.auth.getUser();
-  if(!user.data.user) window.location.href = 'login.html';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-  // Fetch all tweets for demo (in production filter by follows)
-  const { data: tweets } = await supabase
+const tweetsContainer = document.getElementById('tweets-container');
+const tweetBtn = document.getElementById('tweet-btn');
+const tweetText = document.getElementById('tweet-text');
+
+async function loadTweets() {
+  const { data: tweets, error } = await supabase
     .from('tweets')
-    .select(`*, users(username, display_name, profile_pic_url)`)
+    .select('*')
     .order('created_at', { ascending: false });
 
-  const feed = document.getElementById('feed');
-  feed.innerHTML = '';
-  tweets.forEach(tweet => {
-    const div = document.createElement('div');
-    div.className = 'tweet-box';
-    div.innerHTML = `
-      <img src="${tweet.users.profile_pic_url}" class="avatar">
-      <div class="tweet-content">
-        <strong>${tweet.users.display_name}</strong>
-        <span class="handle">@${tweet.users.username}</span><br>
-        ${tweet.text}<br>
-        <div class="tweet-actions">
-          <button onclick="likeTweet('${tweet.id}')">Like</button>
-        </div>
+  if (error) return console.error(error);
+
+  tweetsContainer.innerHTML = '';
+  tweets.forEach(renderTweet);
+}
+
+function renderTweet(tweet) {
+  const div = document.createElement('div');
+  div.classList.add('tweet');
+
+  div.innerHTML = `
+    <img src="https://i.pravatar.cc/48?u=${tweet.id}" class="avatar">
+    <div class="content">
+      <span class="name">User</span>
+      <span class="handle">@user</span>
+      <span class="timestamp">${new Date(tweet.created_at).toLocaleTimeString()}</span>
+      <div class="text">${tweet.text || tweet.content}</div>
+      <div class="actions">
+        <button>Reply</button>
+        <button>Retweet</button>
+        <button>Like</button>
       </div>
-    `;
-    feed.appendChild(div);
-  });
+    </div>
+  `;
+
+  tweetsContainer.appendChild(div);
 }
 
-async function postTweet() {
-  const text = document.getElementById('tweet-text').value;
-  const user = await supabase.auth.getUser();
-  await supabase.from('tweets').insert({ user_id: user.data.user.id, text });
-  document.getElementById('tweet-text').value = '';
-  initTimeline();
-}
+tweetBtn.addEventListener('click', async () => {
+  const content = tweetText.value.trim();
+  if (!content) return;
 
-async function likeTweet(tweetId) {
-  const user = await supabase.auth.getUser();
-  await supabase.from('likes').insert({ user_id: user.data.user.id, tweet_id: tweetId });
-}
+  const { data, error } = await supabase
+    .from('tweets')
+    .insert([{ content }]);
 
-async function loadProfile(username) {
-  const { data: user } = await supabase.from('users').select('*').eq('username', username).single();
-  document.getElementById('profile-avatar').src = user.profile_pic_url || 'https://via.placeholder.com/80';
-  document.getElementById('profile-name').innerText = user.display_name;
-  document.getElementById('profile-handle').innerText = '@' + user.username;
-  document.getElementById('profile-bio').innerText = user.bio;
+  if (error) return console.error(error);
 
-  const { data: tweets } = await supabase.from('tweets').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
-  const container = document.getElementById('profile-tweets');
-  container.innerHTML = '';
-  tweets.forEach(tweet => {
-    const div = document.createElement('div');
-    div.className = 'tweet-box';
-    div.innerHTML = `${tweet.text}`;
-    container.appendChild(div);
-  });
-}
+  tweetText.value = '';
+  renderTweet(data[0]);
+});
+
+// Load tweets on page load
+loadTweets();
