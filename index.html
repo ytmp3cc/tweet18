@@ -7,29 +7,28 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="navbar">Tweet18</div>
+
   <div class="container">
-    <div class="navbar">
-      <span>Tweet18</span>
+    <div class="sidebar">
+      <a href="#">Home</a>
+      <a href="#">Notifications</a>
+      <a href="#">Messages</a>
+      <a href="#">Bookmarks</a>
+      <a href="#">Lists</a>
+      <a href="#">Profile</a>
     </div>
-    <div class="main-content">
-      <div class="sidebar">
-        <a href="#">Home</a>
-        <a href="#">Notifications</a>
-        <a href="#">Messages</a>
-        <a href="#">Bookmarks</a>
-        <a href="#">Lists</a>
-        <a href="#">Profile</a>
+
+    <div class="feed">
+      <div class="tweet-input">
+        <textarea id="tweet-text" placeholder="What's happening?"></textarea>
+        <button id="tweet-btn">Tweet</button>
       </div>
-      <div class="feed">
-        <div class="tweet-input">
-          <textarea id="tweet-text" placeholder="What's happening?"></textarea>
-          <button id="tweet-btn">Tweet</button>
-        </div>
-        <div id="tweets-container"></div>
-      </div>
+
+      <div id="tweets-container"></div>
     </div>
   </div>
-  <script src="supabase.js"></script>
-  <script src="tweet.js"></script>
+
+  <script type="module" src="tweet.js"></script>
 </body>
 </html>
