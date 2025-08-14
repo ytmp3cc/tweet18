@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tweet18 Profile</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.0/dist/supabase.min.js"></script>
+<script src="tweet.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="profile-header">
+    <img src="" id="profile-avatar" class="avatar">
+  </div>
+  <div class="profile-info">
+    <h2 id="profile-name"></h2>
+    <div class="handle" id="profile-handle"></div>
+    <div class="bio" id="profile-bio"></div>
+  </div>
+  <div id="profile-tweets"></div>
+</div>
+<script>
+  const username = new URLSearchParams(window.location.search).get('username');
+  loadProfile(username);
+</script>
+</body>
+</html>
