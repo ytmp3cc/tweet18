@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tweet18 Timeline</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.0/dist/supabase.min.js"></script>
-<script src="tweet.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tweet18</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-  <h1>Timeline</h1>
-  <div id="tweet-composer">
-    <textarea id="tweet-text" placeholder="What's happening?" rows="3" style="width:100%;"></textarea>
-    <button onclick="postTweet()">Tweet</button>
+  <div class="container">
+    <div class="navbar">
+      <span>Tweet18</span>
+    </div>
+    <div class="main-content">
+      <div class="sidebar">
+        <a href="#">Home</a>
+        <a href="#">Notifications</a>
+        <a href="#">Messages</a>
+        <a href="#">Bookmarks</a>
+        <a href="#">Lists</a>
+        <a href="#">Profile</a>
+      </div>
+      <div class="feed">
+        <div class="tweet-input">
+          <textarea id="tweet-text" placeholder="What's happening?"></textarea>
+          <button id="tweet-btn">Tweet</button>
+        </div>
+        <div id="tweets-container"></div>
+      </div>
+    </div>
   </div>
-  <div id="feed"></div>
-</div>
-<script>
-  initTimeline();
-</script>
+  <script src="supabase.js"></script>
+  <script src="tweet.js"></script>
 </body>
 </html>
