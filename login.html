@@ -1,50 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tweet18 Login</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.0/dist/supabase.min.js"></script>
-<script>
-  const supabaseUrl = 'https://ledutjaiqwnadwwvojpg.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxlZHV0amFpcXduYWR3d3ZvanBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxNDc5OTUsImV4cCI6MjA3MDcyMzk5NX0.T9LqaQgtGnt2sRthOCzzfqmF7zjyi3A9KEFWLNSmUMM';
-  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-  async function signUp() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const username = document.getElementById('username').value;
-
-    const { data: user, error } = await supabase.auth.signUp({ email, password });
-    if(error) return alert(error.message);
-
-    await supabase.from('users').insert({
-      id: user.id,
-      username: username,
-      display_name: username
-    });
-    window.location.href = 'index.html';
-  }
-
-  async function login() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    const { data: session, error } = await supabase.auth.signInWithPassword({ email, password });
-    if(error) return alert(error.message);
-    window.location.href = 'index.html';
-  }
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tweet18 Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="login-container">
-  <h2>Login / Sign Up</h2>
-  <input type="text" id="username" placeholder="Username (for signup)">
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <button onclick="signUp()">Sign Up</button>
-</div>
+  <div class="container" style="max-width: 400px; margin: 50px auto;">
+    <h2 style="text-align:center;">Login to Tweet18</h2>
+
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login-btn">Login</button>
+    <button id="signup-btn">Sign Up</button>
+
+    <div id="message" style="margin-top:10px;color:red;"></div>
+  </div>
+
+  <script type="module" src="login.js"></script>
 </body>
 </html>
