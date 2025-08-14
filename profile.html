@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tweet18 Profile</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.0/dist/supabase.min.js"></script>
-<script src="tweet.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tweet18 Profile</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-  <div class="profile-header">
-    <img src="" id="profile-avatar" class="avatar">
+  <div class="navbar">Tweet18</div>
+
+  <div class="container">
+    <div class="sidebar">
+      <a href="index.html">Home</a>
+      <a href="#">Notifications</a>
+      <a href="#">Messages</a>
+      <a href="#">Bookmarks</a>
+      <a href="#">Lists</a>
+      <a href="profile.html">Profile</a>
+      <button id="logout-btn" style="margin-top:20px;">Logout</button>
+    </div>
+
+    <div class="feed">
+      <div class="profile-header">
+        <h2 id="profile-name">User</h2>
+        <p id="profile-email">@user</p>
+      </div>
+
+      <div id="user-tweets"></div>
+    </div>
   </div>
-  <div class="profile-info">
-    <h2 id="profile-name"></h2>
-    <div class="handle" id="profile-handle"></div>
-    <div class="bio" id="profile-bio"></div>
-  </div>
-  <div id="profile-tweets"></div>
-</div>
-<script>
-  const username = new URLSearchParams(window.location.search).get('username');
-  loadProfile(username);
-</script>
+
+  <script type="module" src="profile.js"></script>
 </body>
 </html>
